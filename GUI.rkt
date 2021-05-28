@@ -1,10 +1,10 @@
 #lang racket/gui
+(require "graphLogic.rkt")
 
-(define(factorial value)
-  (cond
-    ((equal? value 0) 1)
-    ((> value 0)(* value (factorial (- value 1))))
-    )
+(define (shrt)
+  (send msg set-label (number->string (car (send list_start get-selections))))
+  (send msg1 set-label (number->string (car (send list_end get-selections))))
+  (pre_shorter (car (send list_start get-selections)) (car (send list_end get-selections)))
   )
 
 (define frame (new frame%
@@ -33,20 +33,36 @@
        [stretchable-width #f]
        ))
 
-(new list-box% [parent col2]
-             [label "Inicio"]
-             [choices '("a" "b")]
-             )
+(define msg (new message%
+                 [parent col1]
+                 [label "Start"]
+                 )
+  )
+(define msg1 (new message%
+                 [parent col1]
+                 [label "End"]
+                 )
+  )
 
-(new list-box% [parent col2]
-             [label "Fin"]
-             [choices '("a" "b")]
-             )
+(define list_start(new list-box%
+                       [parent col2]
+                       [label "Inicio"]
+                       [choices '("a" "b" "c" "d")]
+                       )
+  )
+
+(define list_end(new list-box%
+                     [parent col2]
+                     [label "Fin"]
+                     [choices '("a" "b" "c" "d")]
+                     )
+  )
 
 (new button% [parent col2]
              [label "Calcular"]
              [callback (lambda (button event)
-                         (factorial))])
+                         (shrt)
+                         )])
 
 (new button% [parent col2]
              [label "Salir"]
