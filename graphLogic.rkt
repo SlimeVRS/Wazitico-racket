@@ -303,6 +303,35 @@ Auxiliary function of minimum
              (else
               (minimum-Aux (cdr list) (car list) (+ index 1)))))))
 
+(define (pre_shorter start end)
+  (cond
+    ((equal? start 0) (cond
+                        ((equal? end 0) (shorterRoute "a"  "a" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 1) (shorterRoute "a"  "b" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 2) (shorterRoute "a"  "c" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 3) (shorterRoute "a"  "d" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ))
+    ((equal? start 1) (cond
+                        ((equal? end 0) (shorterRoute "b"  "a" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 1) (shorterRoute "b"  "b" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 2) (shorterRoute "b"  "c" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 3) (shorterRoute "b"  "d" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ))
+    ((equal? start 2) (cond
+                        ((equal? end 0) (shorterRoute "c"  "a" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 1) (shorterRoute "c"  "b" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 2) (shorterRoute "c"  "c" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 3) (shorterRoute "c"  "d" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ))
+    ((equal? start 3) (cond
+                        ((equal? end 0) (shorterRoute "d"  "a" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 1) (shorterRoute "d"  "b" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 2) (shorterRoute "d"  "c" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ((equal? end 3) (shorterRoute "d"  "d" '(("a" (("b" 7) ("c" 5) ("d" 3))) ("b" (("c" 2))) ("c" (("d" 4))) ("d" (("b" 1) ("c" 6))))))
+                        ))
+    )
+  )
+
 #|
 Return the shortest route from node a to node b of a given graph
 I: A start and end node and a graph
