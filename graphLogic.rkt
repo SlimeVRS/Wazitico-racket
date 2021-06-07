@@ -31,14 +31,14 @@ Auxiliary function of addRoutes
 |#
 
 (define (addRoutes-Aux start end weight graph result)
-  (cond((null? graph)
+  (cond((null? graph)*
         result)
        (else
          (cond((equal? start (caar graph))
                (addRoutes-Aux start end weight (cdr graph)
                              (append result
                                      (list (append (list (caar graph))
-                                                   (list (changeRoutes (list end weight) (cadar graph))))))))
+                                                   (list (newRoute (list end weight) (cadar graph))))))))
               (else
                (addRoutes-Aux start end weight (cdr graph)
                               (append result
@@ -50,12 +50,8 @@ I: The name of the node and the list of the routes
 O: Node list with its connections 
 R: The node has to be defined on the graph
 |#
-(define (changeRoutes id _list)
-  (changeRoutes-Aux id _list)
-  )
-
-(define (changeRoutes-Aux id _list)
-  (cond((null? _list)
+(define (newRoute id _list)
+  (cond((null? list)
         (list(append _list id)))
        (else
         (append _list (list id)))))
@@ -213,15 +209,9 @@ Auxiliary function of profNoWeight
   (cond((null? routes)
         (invert '() result))
        ((solution? end (car routes))
-        (profNoWeight-Aux (cdr routes)
-                          end
-                          graph
-                          (cons (car routes) result)))
+        (profNoWeight-Aux (cdr routes) end graph (cons (car routes) result)))
        (else
-        (profNoWeight-Aux (append (checkNeighbours (car routes) graph) (cdr routes))
-                          end
-                          graph
-                          result))))
+        (profNoWeight-Aux (append (checkNeighbours (car routes) graph) (cdr routes)) end graph result))))
 
 #|
 BFS implementation but checking the weight
@@ -240,15 +230,9 @@ Auxiliary function of profWeight
   (cond((null? routes)
         (invert '() result))
        ((weightedSolution? end (car routes))
-        (profWeight-Aux (cdr routes)
-                        end
-                        graph
-                        (cons (car routes) result)))
+        (profWeight-Aux (cdr routes) end graph (cons (car routes) result)))
        (else
-        (profWeight-Aux (append (extend (car routes) graph) (cdr routes))
-                        end
-                        graph
-                        result))))
+        (profWeight-Aux (append (extend (car routes) graph) (cdr routes)) end graph result))))
 
 #|
 Gives the distance of the node
@@ -287,21 +271,22 @@ I: route
 O: its minimum
 R: list of numbers
 |#
-(define (minimum list)
-  (minimum-Aux list (car list) 0)
+(define (lower list)
+  (lower-Aux list (car list) 0)
   )
 
 #|
 Auxiliary function of minimum
 |#
-(define (minimum-Aux list weight index)
+(define (lower-Aux list weight index)
   (cond((null? list)
         index)
        (else
         (cond((<= weight (car list))
-              (minimum-Aux (cdr list) weight index))
+              (lower-Aux (cdr list) weight index))
              (else
-              (minimum-Aux (cdr list) (car list) (+ index 1)))))))
+              (lower-Aux (cdr list) (car list) (+ index 1)))))))
+
 
 (define (pre_shorter start end)
   (cond
@@ -349,7 +334,7 @@ Auxiliary function of shorterRoute
   (cond((null? routesW)
         routesW)
        (else
-        (shorterRoute-Aux2 (minimum (getDistance routesW)) routesW routes))))
+        (shorterRoute-Aux2 (lower (getDistance routesW)) routesW routes))))
 
 #|
 Auxiliary function of shorterRoute-Aux
